@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Env-Firebase</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+<body>
+<h1 class="has-text-centered title">Firebase Environment Config</h1>
+<hr/>
+<div id="app">
+    <section class="has-text-centered">
+        <div class="control">
+            <label class="radio is-capitalized mx-5" v-for="(option,key) in options" :key="key">
+                <input type="radio" :value="option" :id="option" v-model="picked">
+                {{ option }}
+            </label>
+        </div>
+    </section>
+    <hr/>
+    <section class="container mt-4" style="max-width: 650px">
+        <label>
+            <textarea class="textarea" placeholder="Your Firebase Config" v-model="config" rows="7"></textarea>
+        </label>
+        <div class="control mt-4">
+            <label>
+                <textarea class="textarea" readonly :value="renderToTemplate" id="ResultTextarea" rows="7">This content is readonly</textarea>
+            </label>
+        </div>
+
+        <div class="mt-4 is-flex is-justify-content-space-between">
+            <div>
+                <button class="button is-success is-outlined is-large" @click="copyText">Copy</button>
+                <button class="ml-3 button is-success is-outlined is-large" @click="copyTextInit">Copy Initializer</button>
+            </div>
+
+            <div class="notification is-success" v-if="!hidden">
+                <h1>Text Copied to Clipboard</h1>
+            </div>
+        </div>
+    </section>
+</div>
+<footer class="footer mt-3 py-3">
+    <div class="content has-text-centered">
+        <p>Converts your firebase config into appropriate structure for <a
+                href="https://create-react-app.dev/docs/adding-custom-environment-variables/#adding-development-environment-variables-in-env"
+                target="_blank">react</a> and <a
+                href="https://cli.vuejs.org/guide/mode-and-env.html#environment-variables" target="_blank">vue</a> apps,
+            which you can easily add to
+            your <code>.env.local</code> file. </p>
+        <p>Created By <a href="https://sushil-kamble.netlify.app/" target="_blank">Sushil Kamble</a>. </p>
+    </div>
+</footer>
+
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.global.prod.js"
+        integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
+        crossorigin="anonymous"
+></script>
+<script src="index.js"></script>
+</body>
+</html>
