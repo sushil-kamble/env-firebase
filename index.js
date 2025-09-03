@@ -113,3 +113,17 @@ const app = Vue.createApp({
 });
 
 app.mount("#app");
+
+const themeToggle = document.getElementById("theme-toggle");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+if (prefersDark) {
+    document.documentElement.classList.add("dark");
+    themeToggle.textContent = "☀️";
+}
+
+themeToggle.addEventListener("click", () => {
+    document.documentElement.classList.toggle("dark");
+    const isDark = document.documentElement.classList.contains("dark");
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+});
