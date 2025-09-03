@@ -1,62 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors duration-500">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Env-Firebase</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Env-Firebase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body>
-<h1 class="has-text-centered title">Firebase Environment Config</h1>
-<hr/>
-<div id="app">
-    <section class="has-text-centered">
-        <div class="control">
-            <label class="radio is-capitalized mx-5" v-for="(option,key) in options" :key="key">
-                <input type="radio" :value="option" :id="option" v-model="picked">
-                {{ option }}
-            </label>
-        </div>
-    </section>
-    <hr/>
-    <section class="container mt-4" style="max-width: 650px">
-        <label>
-            <textarea class="textarea" placeholder="Your Firebase Config" v-model="config" rows="7"></textarea>
-        </label>
-        <div class="control mt-4">
-            <label>
-                <textarea class="textarea" readonly :value="renderToTemplate" id="ResultTextarea" rows="7">This content is readonly</textarea>
-            </label>
-        </div>
-
-        <div class="mt-4 is-flex is-justify-content-space-between">
-            <div>
-                <button class="button is-success is-outlined is-large" @click="copyText">Copy</button>
-                <button class="ml-3 button is-success is-outlined is-large" @click="copyTextInit">Copy Initializer</button>
-            </div>
-
-            <div class="notification is-success" v-if="!hidden">
-                <h1>Text Copied to Clipboard</h1>
-            </div>
-        </div>
-    </section>
-</div>
-<footer class="footer mt-3 py-3">
-    <div class="content has-text-centered">
-        <p>Converts your firebase config into appropriate structure for <a
-                href="https://create-react-app.dev/docs/adding-custom-environment-variables/#adding-development-environment-variables-in-env"
-                target="_blank">react</a> and <a
-                href="https://cli.vuejs.org/guide/mode-and-env.html#environment-variables" target="_blank">vue</a> apps,
-            which you can easily add to
-            your <code>.env.local</code> file. </p>
-        <p>Created By <a href="https://sushil-kamble.netlify.app/" target="_blank">Sushil Kamble</a>. </p>
+<body class="font-sans bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 min-h-screen flex flex-col items-center justify-center">
+  <button id="theme-toggle" class="absolute top-5 right-5 text-2xl text-gray-700 dark:text-gray-200 focus:outline-none">🌙</button>
+  <div id="app" class="w-full max-w-2xl backdrop-blur-xl bg-white/30 dark:bg-gray-800/30 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/30 p-8">
+    <h1 class="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">Firebase Environment Config</h1>
+    <div class="flex justify-center space-x-6 mb-6">
+      <label class="inline-flex items-center space-x-2 capitalize" v-for="(option,key) in options" :key="key">
+        <input type="radio" class="h-5 w-5 accent-indigo-600 dark:accent-indigo-400" :value="option" :id="option" v-model="picked">
+        <span class="text-gray-700 dark:text-gray-300">{{ option }}</span>
+      </label>
     </div>
-</footer>
-
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.global.prod.js"
-        integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
-        crossorigin="anonymous"
-></script>
-<script src="index.js"></script>
+    <textarea class="w-full p-4 rounded-lg border border-white/30 dark:border-gray-600/30 bg-white/50 dark:bg-gray-900/50 text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-indigo-600" placeholder="Your Firebase Config" v-model="config" rows="7"></textarea>
+    <textarea class="w-full p-4 rounded-lg mt-4 border border-white/30 dark:border-gray-600/30 bg-white/50 dark:bg-gray-900/50 text-gray-700 dark:text-gray-200 focus:outline-none" readonly :value="renderToTemplate" id="ResultTextarea" rows="7"></textarea>
+    <div class="flex justify-between items-center mt-6">
+      <div class="space-x-3">
+        <button class="px-5 py-2 rounded-lg bg-indigo-500/80 hover:bg-indigo-600/80 text-white shadow-md backdrop-blur-md transition" @click="copyText">Copy</button>
+        <button class="px-5 py-2 rounded-lg bg-green-500/80 hover:bg-green-600/80 text-white shadow-md backdrop-blur-md transition" @click="copyTextInit">Copy Initializer</button>
+      </div>
+      <div class="text-green-700 dark:text-green-400 font-medium" v-if="!hidden">
+        Text Copied to Clipboard
+      </div>
+    </div>
+  </div>
+  <footer class="mt-8 text-center text-gray-700 dark:text-gray-300">
+    <p>Converts your firebase config into appropriate structure for <a class="underline text-indigo-600 dark:text-indigo-400" href="https://create-react-app.dev/docs/adding-custom-environment-variables/#adding-development-environment-variables-in-env" target="_blank">react</a> and <a class="underline text-indigo-600 dark:text-indigo-400" href="https://cli.vuejs.org/guide/mode-and-env.html#environment-variables" target="_blank">vue</a> apps, which you can easily add to your <code>.env.local</code> file.</p>
+    <p class="mt-2">Created By <a class="underline text-indigo-600 dark:text-indigo-400" href="https://sushil-kamble.netlify.app/" target="_blank">Sushil Kamble</a>.</p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.global.prod.js" integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA==" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
 </body>
 </html>
